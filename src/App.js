@@ -18,7 +18,22 @@ class App extends Component {
 		counter.text = text;
 
 		const charArr = text.split('');
-		('');
+
+		this.setState({ counter: counter, charArr: charArr });
+	};
+
+	deleteCharHandler = (charIndex) => {
+		const charArr = [
+			...this.state.charArr
+		];
+		const counter = this.state.counter;
+		const text = counter.text.split('');
+
+		charArr.splice(charIndex, 1);
+		text.splice(charIndex, 1);
+		const newText = text.join('');
+		counter.count = newText.length;
+		counter.text = newText;
 
 		this.setState({ counter: counter, charArr: charArr });
 	};
@@ -27,14 +42,18 @@ class App extends Component {
 		let chars = (
 			<div>
 				{this.state.charArr.map((char, index) => {
-					return <CharComponent char={char} key={index} />;
+					return <CharComponent char={char} key={index} click={() => this.deleteCharHandler(index)} />;
 				})}
 			</div>
 		);
 
 		return (
 			<div>
-				<CharCount chars={this.state.counter.count} changed={(event) => this.changeHandler(event)} />
+				<CharCount
+					text={this.state.counter.text}
+					chars={this.state.counter.count}
+					changed={(event) => this.changeHandler(event)}
+				/>
 				<ValidatorComponent response={this.state.counter.count >= 8 ? 'Valid Length' : 'Invalid Length'} />
 				<ul>{chars}</ul>
 			</div>

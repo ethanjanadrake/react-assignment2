@@ -3,7 +3,7 @@ import React from 'react';
 const charCount = (props) => {
 	return (
 		<div className='charCount'>
-			<input type='text' onChange={props.changed} />
+			<input className='charCountInput' type='text' value={props.text} onChange={props.changed} />
 			<p>{props.chars}</p>
 		</div>
 	);
